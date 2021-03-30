@@ -1,3 +1,5 @@
+import { Live } from './../../../shared/models/live.modsl';
+import { LiveService } from './../../../shared/service/live.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LiveListComponent implements OnInit {
 
-  constructor() { }
+  livesPrevious!: Live[];
+
+  constructor(
+    public liverService: LiveService
+  ) { }
 
   ngOnInit(): void {
   }
-
+  getLives(){
+    this.liverService.getLivesWithFlag('previous').subscribe(data => {
+      this.livesPrevious = data.content;
+      console.log(this.livesPrevious);
+      
+    })
+  }
 }
